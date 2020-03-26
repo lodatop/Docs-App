@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { KoroCard, KoroCollapse, KoroTable, KoroIcon, KoroBadge } from 'rn-koro-lib'
+import { ScrollView } from 'react-native-gesture-handler';
 
 export const GlobalComponentsScreen = (props) => {
 
     const tableTitle = ['Title', 'Title2', 'Title3', 'Title4'];
-  
+    
     const tableData = [['data', 'data2', 'data3', 'data4'], ['data5', 'data6', 'data7', 'data8']];
     
     const badgeHeader = () => (
@@ -13,27 +14,7 @@ export const GlobalComponentsScreen = (props) => {
           <Text style={styles.title}>Badge</Text>
         </View>
     );
-
-    const iconHeader = () => (
-        <View>
-          <Text style={styles.title}>Icon</Text>
-        </View>
-    );
-
-    const cardHeader = () => (
-        <View>
-          <Text style={styles.title}>Card</Text>
-        </View>
-    );
-
-    const tableHeader = () => (
-        <View>
-          <Text style={styles.title}>Table</Text>
-        </View>
-    );
-        
     const badgeCode = "<KoroBadge value={value} showValue={boolean} badgeSize={size}> Content with badge </KoroBadge>"
-
     const badgeFooter = () => (
         <KoroCollapse title='Show code'>
             <View style={[{backgroundColor: 'LightGrey'}]}>
@@ -46,10 +27,14 @@ export const GlobalComponentsScreen = (props) => {
             </View>
         </KoroCollapse>
       );
-
-      const iconCode = '<KoroIcon icon="icon" size="size" style="style"/>'
-
-      const iconFooter = () => (
+      
+    const iconHeader = () => (
+        <View>
+          <Text style={styles.title}>Icon</Text>
+        </View>
+    );
+    const iconCode = '<KoroIcon icon="icon" size="size" style="style"/>'
+    const iconFooter = () => (
         <KoroCollapse title='Show code'>
             <View style={[{backgroundColor: 'LightGrey'}]}>
                 <Text> {iconCode} </Text>
@@ -59,11 +44,15 @@ export const GlobalComponentsScreen = (props) => {
                 <Text> style: custom style for the icon component. </Text>
             </View>
         </KoroCollapse>
-      );
+    );
 
-      const tableCode = "<KoroTable  borderStyle={borderStyle} widthArr={[array]} headStyle={headStyle} heightArr={array of height} tableData={tableData} tableHead={tableTitle} />"
-
-      const tableFooter = () => (
+    const tableHeader = () => (
+        <View>
+          <Text style={styles.title}>Table</Text>
+        </View>
+    );
+    const tableCode = "<KoroTable  borderStyle={borderStyle} widthArr={[array]} headStyle={headStyle} heightArr={array of height} tableData={tableData} tableHead={tableTitle} />"
+    const tableFooter = () => (
         <KoroCollapse title='Show code'>
             <View style={[{backgroundColor: 'LightGrey'}]}>
                 <Text> {tableCode} </Text>
@@ -76,51 +65,61 @@ export const GlobalComponentsScreen = (props) => {
                 <Text> tableData: an array of each row of data in the table.. </Text>
             </View>
         </KoroCollapse>
-      );
+      );  
 
-      const cardCode = "<KoroCard header={Header} footer={Footer} style={style}> Content of the body goes here. </KoroCard>"
-
-      const cardFooter = () => (
-        <KoroCollapse title='Show code'>
-            <View style={[{backgroundColor: 'LightGrey'}]}>
-                <Text> {cardCode} </Text>
-                <Text> Props: </Text>
-                <Text> header: the content of the card's header. </Text>
-                <Text> footer: the content of the card's footer. </Text>
-                <Text> style: custom style for the card. </Text>
-            </View>
-        </KoroCollapse>
-      );
+      const cardHeader = () => (
+        <View>
+          <Text style={styles.title}>Card</Text>
+        </View>
+    );
+    const cardCode = "<KoroCard header={Header} footer={Footer} style={style}> Content of the body goes here. </KoroCard>"
+    const cardFooter = () => (
+      <KoroCollapse title='Show code'>
+          <View style={[{backgroundColor: 'LightGrey'}]}>
+              <Text> {cardCode} </Text>
+              <Text> Props: </Text>
+              <Text> header: the content of the card's header. </Text>
+              <Text> footer: the content of the card's footer. </Text>
+              <Text> style: custom style for the card. </Text>
+          </View>
+      </KoroCollapse>
+    );
 
     return(
         <View>
-            <KoroCard header={badgeHeader} footer={badgeFooter}>
-                <View>
-                <KoroBadge value={1} showValue={true} badgeSize={25}>
-                    <Text>Badge</Text>
-                </KoroBadge>
-                </View>
-            </KoroCard>
+            <ScrollView>
+                <KoroCard header={badgeHeader} footer={badgeFooter}>
+                    <View>
+                        <KoroBadge value={1} showValue={true} badgeSize={25}>
+                            <Text>Badge</Text>
+                        </KoroBadge>
+                    </View>
+                </KoroCard>
 
-            <KoroCard header={iconHeader} footer={iconFooter}>
-                <View>
-                    <KoroIcon icon="downArrow"/>
-                </View>
-            </KoroCard>
+                <KoroCard header={iconHeader} footer={iconFooter}>
+                    <View>
+                        <KoroIcon icon="downArrow"/>
+                    </View>
+                </KoroCard>
 
-            <KoroCard header={tableHeader} footer={tableFooter}>
-                <View>
-                    <KoroTable  borderStyle={{borderWidth: 1}} widthArr={[50,50,50,50]} headStyle={[{ backgroundColor: 'gray'}]} tableData={tableData} tableHead={tableTitle} />
-                </View>
-            </KoroCard>
+                <KoroCard header={tableHeader} footer={tableFooter}>
+                    <View>
+                        <KoroTable  borderStyle={{borderWidth: 1}} widthArr={[50,50,50,50]} headStyle={[{ backgroundColor: 'gray'}]} tableData={tableData} tableHead={tableTitle} />
+                    </View>
+                </KoroCard>
 
-            <KoroCard header={cardHeader} footer={cardFooter}>
-                <View>
-                    <Text>This whole thing is a card.</Text>
-                </View>
-            </KoroCard>
+                <KoroCard header={cardHeader} footer={cardFooter}>
+                    <View>
+                        <Text>This whole thing is a card.</Text>
+                    </View>
+                </KoroCard>
+            </ScrollView>
         </View>
     )
+}
+
+GlobalComponentsScreen.navigationOptions = {
+    headerTitle: 'Global Components'
 }
 
 const styles = StyleSheet.create({

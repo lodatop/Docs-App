@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { KoroCard, KoroAlert, KoroCollapse, KoroButton, KoroModal, KoroToast, KoroPopover, KoroProgress } from 'rn-koro-lib'
+import { ScrollView } from 'react-native-gesture-handler';
 
 export const InfoComponentsScreen = (props) => {
 
@@ -19,48 +20,22 @@ export const InfoComponentsScreen = (props) => {
             />)
         setTimeout(()=>{
           setToast(null)
-        }, 2000)
+        }, 1500)
     }
 
     const showProgress = () => {
         setProgressActive(true);
         setTimeout(()=>{
           setProgressActive(false)
-        }, 4000)
+        }, 2000)
     }
-
+    
     const alertHeader = () => (
         <View>
           <Text style={styles.title}>Alert</Text>
         </View>
     );
-
-    const modalHeader = () => (
-        <View>
-          <Text style={styles.title}>Modal</Text>
-        </View>
-    );
-
-    const toastHeader = () => (
-        <View>
-          <Text style={styles.title}>Toast</Text>
-        </View>
-    );
-
-    const popoverHeader = () => (
-        <View>
-          <Text style={styles.title}>Popover</Text>
-        </View>
-    ); 
-
-    const progressHeader = () => (
-        <View>
-          <Text style={styles.title}>Progress</Text>
-        </View>
-    ); 
-        
     const alertCode = '<KoroAlert message="Alert message" visible={boolean} confirmButton={{onPress: () => doSomething(), textStyle: {}} cancelButton={{onPress: () => doSomething(), textStyle: {}}} />'
-
     const alertFooter = () => (
         <KoroCollapse title='Show code'>
             <View style={[{backgroundColor: 'LightGrey'}]}>
@@ -72,40 +47,54 @@ export const InfoComponentsScreen = (props) => {
                 <Text> deleteButton: an object that has onPress property and textStyle for styling the text on the delete button. </Text>
             </View>
         </KoroCollapse>
-      );
+        );
+    
+    const modalHeader = () => (
+        <View>
+          <Text style={styles.title}>Modal</Text>
+        </View>
+    );
+    const modalCode = '<KoroModal visible={boolean} borderStyle={{padding: 20}} onRequestClose={()=> setVisibility(false)}> the content goes here </KoroModal>'
+    const modalFooter = () => (
+    <KoroCollapse title='Show code'>
+        <View style={[{backgroundColor: 'LightGrey'}]}>
+            <Text> {modalCode} </Text>
+            <Text> Props: </Text>
+            <Text> visible: a boolean that sets whether the modal is visible. </Text>
+            <Text> onRequestClose: the function triggered when the user attempts to close the modal. </Text>
+            <Text> borderStyle: custom style for the modal borders. </Text>
+        </View>
+    </KoroCollapse>
+    );
 
-      const modalCode = '<KoroModal visible={boolean} borderStyle={{padding: 20}} onRequestClose={()=> setVisibility(false)}> the content goes here </KoroModal>'
 
-      const modalFooter = () => (
-        <KoroCollapse title='Show code'>
-            <View style={[{backgroundColor: 'LightGrey'}]}>
-                <Text> {modalCode} </Text>
-                <Text> Props: </Text>
-                <Text> visible: a boolean that sets whether the modal is visible. </Text>
-                <Text> onRequestClose: the function triggered when the user attempts to close the modal. </Text>
-                <Text> borderStyle: custom style for the modal borders. </Text>
-            </View>
-        </KoroCollapse>
-      );
+    const toastHeader = () => (
+        <View>
+          <Text style={styles.title}>Toast</Text>
+        </View>
+    );
+    const toastCode = "<KoroToast time={duration} title='toast title' position='position' style={customStyle}/>)"
+    const toastFooter = () => (
+    <KoroCollapse title='Show code'>
+        <View style={[{backgroundColor: 'LightGrey'}]}>
+            <Text> {toastCode} </Text>
+            <Text> Props: </Text>
+            <Text> time: duration of the toast in miliseconds. </Text>
+            <Text> title: title of the toast. </Text>
+            <Text> position: the position in which the toast will be shown. </Text>
+            <Text> style: custom style for the toast component. </Text>
+        </View>
+    </KoroCollapse>
+    );
 
-      const toastCode = "<KoroToast time={duration} title='toast title' position='position' style={customStyle}/>)"
 
-      const toastFooter = () => (
-        <KoroCollapse title='Show code'>
-            <View style={[{backgroundColor: 'LightGrey'}]}>
-                <Text> {toastCode} </Text>
-                <Text> Props: </Text>
-                <Text> time: duration of the toast in miliseconds. </Text>
-                <Text> title: title of the toast. </Text>
-                <Text> position: the position in which the toast will be shown. </Text>
-                <Text> style: custom style for the toast component. </Text>
-            </View>
-        </KoroCollapse>
-      );
-
-      const popoverCode = "<KoroPopover visible={boolean} title='title' content='text content'> Button goes here </KoroPopover >"
-
-      const toastFooter = () => (
+    const popoverHeader = () => (
+        <View>
+          <Text style={styles.title}>Popover</Text>
+        </View>
+    ); 
+    const popoverCode = "<KoroPopover visible={boolean} title='title' content='text content'> Button goes here </KoroPopover >"
+    const popoverFooter = () => (
         <KoroCollapse title='Show code'>
             <View style={[{backgroundColor: 'LightGrey'}]}>
                 <Text> {popoverCode} </Text>
@@ -117,20 +106,25 @@ export const InfoComponentsScreen = (props) => {
         </KoroCollapse>
       );
 
-      const progressCode = "<KoroProgress visible={boolean}/>"
-
-      const progressFooter = () => (
-        <KoroCollapse title='Show code'>
-            <View style={[{backgroundColor: 'LightGrey'}]}>
-                <Text> {progressCode} </Text>
-                <Text> Props: </Text>
-                <Text> visible: a boolean that sets whether the progress is visible. </Text>
-            </View>
-        </KoroCollapse>
-      );
+    const progressHeader = () => (
+        <View>
+          <Text style={styles.title}>Progress</Text>
+        </View>
+    ); 
+    const progressCode = "<KoroProgress visible={boolean}/>"
+    const progressFooter = () => (
+    <KoroCollapse title='Show code'>
+        <View style={[{backgroundColor: 'LightGrey'}]}>
+            <Text> {progressCode} </Text>
+            <Text> Props: </Text>
+            <Text> visible: a boolean that sets whether the progress is visible. </Text>
+        </View>
+    </KoroCollapse>
+    );
 
     return(
         <View>
+            <ScrollView>
             <KoroCard header={alertHeader} footer={alertFooter}>
                 <View>
                     <KoroAlert
@@ -162,7 +156,6 @@ export const InfoComponentsScreen = (props) => {
 
             <KoroCard header={toastHeader} footer={toastFooter}>
                 <View>
-                    {toast}
                     <KoroButton title='Call toast' onPress={tryToast} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}}/>
                 </View>
             </KoroCard>
@@ -185,8 +178,14 @@ export const InfoComponentsScreen = (props) => {
                     <KoroButton title="Load Progress" onPress={() => showProgress()} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}} />
                 </View>
             </KoroCard>
+            </ScrollView>
+            {toast}
         </View>
     )
+}
+
+InfoComponentsScreen.navigationOptions = {
+    headerTitle: 'Information Components'
 }
 
 const styles = StyleSheet.create({

@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text, ScrollView, Alert, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 import { KoroSteps, KoroButton, Wrapper } from 'rn-koro-lib';
+import { ScrollView } from 'react-native-gesture-handler';
 
-const Welcome = (props) => {
+export const Welcome = (props) => {
 
     let { onDone } = props
 
@@ -43,7 +44,8 @@ const Welcome = (props) => {
     )
 
     let step3 = (
-        <View style={{...styles.stepContainer, padding: 20, backgroundColor: 'lightgrey'}}>
+        <View style={{...styles.stepContainer, ...styles.step3}}>
+            <ScrollView>
                 <Text>import React from 'react';</Text>
                 <Text>import {'{'} View, Text, StyleSheet {'}'} from 'react-native';</Text>
                 <Text>import {'{'} KoroButton {'}'} from 'rn-koro-lib';</Text>
@@ -67,7 +69,8 @@ const Welcome = (props) => {
                 <Text style={{marginLeft: 15}}>{'}'}</Text>
                 <Text>});</Text>
                 <KoroButton title="Press Me!" buttonStyle={styles.button}/>
-            </View>
+            </ScrollView>
+        </View>
     );
 
     let step4 = (
@@ -87,10 +90,12 @@ const Welcome = (props) => {
     ]
 
     return (
+        <View style = {styles.container}>
         <KoroSteps 
             steps={steps}
-            onDone={onDone}
+            onDone={()=>props.navigation.navigate({routeName: 'Home'})}
         />
+        </View>
     )
 }
 
@@ -104,7 +109,21 @@ const styles = StyleSheet.create({
         width: '40%',
         alignSelf: 'center',
         marginTop: 20
+    },
+    step3: {
+        padding: 0,
+        paddingLeft: 35,
+        paddingVertical: 10, 
+        backgroundColor: 'lightgrey', 
+        maxHeight: "85%", 
+        flexWrap: 'wrap'
+    },
+    container: {
+        flex:1,
+        paddingTop: 10, 
+        width: '100%'
     }
 })
-
-export default Welcome
+Welcome.navigationOptions = {
+    headerTitle: 'Welcome to Koro Library'
+}

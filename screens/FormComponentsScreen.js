@@ -119,6 +119,10 @@ export const FormComponentsScreen = (props) => {
     )
 }
 
+FormComponentsScreen.navigationOptions = {
+    headerTitle: 'Forms Components'
+}
+
 const styles = StyleSheet.create({
     title: {
         fontSize: 35,
