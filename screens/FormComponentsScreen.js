@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { KoroCard, KoroInput, KoroCollapse, KoroButton, KoroForm, KoroSelect } from 'rn-koro-lib'
+import { KoroCard, KoroInput, KoroCollapse, KoroButton, KoroForm, KoroSelect, KoroDropdown } from 'rn-koro-lib'
 
 export const FormComponentsScreen = (props) => {
 
@@ -22,6 +22,12 @@ export const FormComponentsScreen = (props) => {
     const selectHeader = () => (
         <View>
           <Text style={styles.title}>Select</Text>
+        </View>
+    );
+    
+    const dropdownHeader = () => (
+        <View>
+          <Text style={styles.title}>Dropdown</Text>
         </View>
     );  
         
@@ -68,6 +74,20 @@ export const FormComponentsScreen = (props) => {
         </KoroCollapse>
       );
 
+      const dropdownCode = '<KoroDropdown options={["optionOne","optionTwo","optionThree"]} onSelect={(selection) => doSomething(selection)}/>'
+
+      const dropdownFooter = () => (
+        <KoroCollapse title='Show code'>
+            <View style={[{backgroundColor: 'LightGrey'}]}>
+                <Text> {dropdownCode} </Text>
+                <Text> Props: </Text>
+                <Text> options: an array of the options available to select. </Text>
+                <Text> onSelect: the function triggered when an option is Selected. </Text>
+                <Text> style: custom style for the select component. </Text>
+            </View>
+        </KoroCollapse>
+      );
+
     return(
         <View>
             <KoroCard header={inputHeader} footer={inputFooter}>
@@ -87,6 +107,12 @@ export const FormComponentsScreen = (props) => {
             <KoroCard header={selectHeader} footer={selectFooter}>
                 <View>
                     <KoroSelect options={['one','two','three']} onSelect={(selection) => alert("Selected: " + selection)}/>
+                </View>
+            </KoroCard>
+
+            <KoroCard header={dropdownHeader} footer={dropdownFooter}>
+                <View>
+                    <KoroDropdown options={['one','two','three']} onSelect={(selection) => alert("Selected: " + selection)}/>
                 </View>
             </KoroCard>
         </View>
