@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { KoroCard, KoroInput, KoroCollapse, KoroButton, KoroForm, KoroSelect, KoroDropdown } from 'rn-koro-lib'
+import { ScrollView } from 'react-native-gesture-handler';
 
 export const FormComponentsScreen = (props) => {
 
@@ -89,33 +90,35 @@ export const FormComponentsScreen = (props) => {
       );
 
     return(
-        <View>
-            <KoroCard header={inputHeader} footer={inputFooter}>
-                <View>
-                    <KoroInput label='Label' onChange={(text) => setInput(text)}/>
-                    <KoroButton title="Print value" onPress={() => alert(input)} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}} />
-                </View>
-            </KoroCard>
+        <ScrollView>
+            <View>
+                <KoroCard header={inputHeader} footer={inputFooter}>
+                    <View>
+                        <KoroInput label='Label' onChange={(text) => setInput(text)}/>
+                        <KoroButton title="Print value" onPress={() => alert(input)} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}} />
+                    </View>
+                </KoroCard>
 
-            <KoroCard header={formHeader} footer={formFooter}>
-                <View>
-                    <KoroForm inputList={["input1", "input2"]} onChanges={(content) => setForm(content)} />
-                    <KoroButton title="Print values" onPress={() => alert(form)} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}} />
-                </View>
-            </KoroCard>
+                <KoroCard header={formHeader} footer={formFooter}>
+                    <View>
+                        <KoroForm inputList={["input1", "input2"]} onChanges={(content) => setForm(content)} />
+                        <KoroButton title="Print values" onPress={() => alert(form)} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}} />
+                    </View>
+                </KoroCard>
 
-            <KoroCard header={selectHeader} footer={selectFooter}>
-                <View>
-                    <KoroSelect options={['one','two','three']} onSelect={(selection) => alert("Selected: " + selection)}/>
-                </View>
-            </KoroCard>
+                <KoroCard header={selectHeader} footer={selectFooter}>
+                    <View>
+                        <KoroSelect options={['one','two','three']} onSelect={(selection) => alert("Selected: " + selection)}/>
+                    </View>
+                </KoroCard>
 
-            <KoroCard header={dropdownHeader} footer={dropdownFooter}>
-                <View>
-                    <KoroDropdown options={['one','two','three']} onSelect={(selection) => alert("Selected: " + selection)}/>
-                </View>
-            </KoroCard>
-        </View>
+                <KoroCard header={dropdownHeader} footer={dropdownFooter}>
+                    <View>
+                        <KoroDropdown options={['one','two','three']} onSelect={(selection) => alert("Selected: " + selection)}/>
+                    </View>
+                </KoroCard>
+            </View>
+        </ScrollView>
     )
 }
 

@@ -7,13 +7,15 @@ import { FormComponentsScreen } from '../screens/FormComponentsScreen'
 import { createAppContainer } from 'react-navigation';
 import { Home } from '../screens/Home';
 import { Welcome } from '../screens/Welcome';
+import { OtherComponentsScreen } from '../screens/OtherComponents';
 
 const DocsNavigator = createStackNavigator({
     Welcome: Welcome,
     Home:  Home,
-    FormsComponentPage: FormComponentsScreen,
+    FormsComponentsPage: FormComponentsScreen,
     GlobalComponentsPage: GlobalComponentsScreen,
-    InfoComponentsPage: InfoComponentsScreen
+    InfoComponentsPage: InfoComponentsScreen,
+    OtherComponentsPage: OtherComponentsScreen
 });
 
 export default createAppContainer(DocsNavigator)

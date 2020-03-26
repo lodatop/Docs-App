@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { KoroCard, KoroAlert, KoroCollapse, KoroButton, KoroModal, KoroToast, KoroPopover, KoroProgress } from 'rn-koro-lib'
+import { KoroCard, KoroAlert, KoroCollapse, KoroButton, KoroModal, KoroToast, KoroPopover, KoroProgress, KoroSteps } from 'rn-koro-lib'
 import { ScrollView } from 'react-native-gesture-handler';
 
 export const InfoComponentsScreen = (props) => {
 
     const [callAlert, setCallAlert] = useState(false)
     const [modalOpen, setModalOpen] = useState(false)
+    const [stepsOpen, setStepsOpen] = useState(false)
     const [popOpen, setPopOpen] = useState(false)
     const [toast, setToast] = useState(null);
     const [progressActive, setProgressActive] = useState(false)
@@ -122,62 +123,113 @@ export const InfoComponentsScreen = (props) => {
     </KoroCollapse>
     );
 
+    const stepsHeader = () => (
+        <View>
+          <Text style={styles.title}>Steps</Text>
+        </View>
+    ); 
+    const stepsCode = "<KoroSteps steps={['Step number 1', 'Step number 2', 'Step number 3', 'Step number 4', 'Step number 5']} onDone={props.onDone}/>"
+    const stepsFooter = () => (
+        <KoroCollapse title='Show code'>
+            <View style={[{backgroundColor: 'LightGrey'}]}>
+                <Text> {stepsCode} </Text>
+                <Text> steps: an array of the content of each step, it can be jsx also</Text>
+                <Text> onDone: function to be exectuted at the end of the steps </Text>
+            </View>
+        </KoroCollapse>
+    )
+
+    const collapseHeader = () => (
+        <View>
+          <Text style={styles.title}>Collapse</Text>
+        </View>
+    ); 
+    const collapseCode = "<KoroCollapse title='Show code'><View style={[{backgroundColor: 'LightGrey'}]}><Text> {collapseCode} </Text> <Text> Props: </Text><Text> visible: a boolean that sets whether the progress is visible. </Text></View></KoroCollaps "
+    const collapseFooter = () => (
+        <KoroCollapse title='Show code'>
+            <View style={[{backgroundColor: 'LightGrey'}]}>
+                <Text> {collapseCode} </Text>
+                <Text> Title: shows the title of the collapse</Text>
+                <Text> Children: to be shown in the collapse </Text>
+            </View>
+        </KoroCollapse>
+    );
+
     return(
         <View>
             <ScrollView>
-            <KoroCard header={alertHeader} footer={alertFooter}>
-                <View>
-                    <KoroAlert
-                        visible={callAlert}
-                        confirmButton={{
-                            onPress: () => setCallAlert(false)
-                            ,
-                            textStyle: {
-                            color: 'black'
-                            }
-                        }}
-                        cancelButton={{
-                            onPress: ()=> setCallAlert(false)
-                        }}
-                    />
-                    <KoroButton title="Call alert" onPress={() => setCallAlert(true)} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}} />
-                </View>
-            </KoroCard>
+                <KoroCard header={alertHeader} footer={alertFooter}>
+                    <View>
+                        <KoroAlert
+                            visible={callAlert}
+                            confirmButton={{
+                                onPress: () => setCallAlert(false)
+                                ,
+                                textStyle: {
+                                color: 'black'
+                                }
+                            }}
+                            cancelButton={{
+                                onPress: ()=> setCallAlert(false)
+                            }}
+                        />
+                        <KoroButton title="Call alert" onPress={() => setCallAlert(true)} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}} />
+                    </View>
+                </KoroCard>
 
-            <KoroCard header={modalHeader} footer={modalFooter}>
-                <View>
-                    <KoroModal visible={modalOpen} borderStyle={{padding: 20}} onRequestClose={()=> setModalOpen(false)}>
-                        <Text> This is a modal. </Text>
-                        <KoroButton title="Press to close" onPress={()=> setModalOpen(false)} buttonStyle={{minWidth: 200, backgroundColor: 'red'}} textStyle={{color: 'white'}}/>
-                    </KoroModal>
-                    <KoroButton title="Open Modal" onPress={()=> setModalOpen(true)} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}}/>
-                </View>
-            </KoroCard>
+                <KoroCard header={modalHeader} footer={modalFooter}>
+                    <View>
+                        <KoroModal visible={modalOpen} borderStyle={{padding: 20}} onRequestClose={()=> setModalOpen(false)}>
+                            <Text> This is a modal. </Text>
+                            <KoroButton title="Press to close" onPress={()=> setModalOpen(false)} buttonStyle={{minWidth: 200, backgroundColor: 'red'}} textStyle={{color: 'white'}}/>
+                        </KoroModal>
+                        <KoroButton title="Open Modal" onPress={()=> setModalOpen(true)} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}}/>
+                    </View>
+                </KoroCard>
 
-            <KoroCard header={toastHeader} footer={toastFooter}>
-                <View>
-                    <KoroButton title='Call toast' onPress={tryToast} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}}/>
-                </View>
-            </KoroCard>
+                <KoroCard header={toastHeader} footer={toastFooter}>
+                    <View>
+                        <KoroButton title='Call toast' onPress={tryToast} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}}/>
+                    </View>
+                </KoroCard>
 
-            <KoroCard header={popoverHeader} footer={popoverFooter}>
-                <View>
-                    <KoroPopover
-                        visible={popOpen}
-                        title='Popover'
-                        content='This is a popover.'
-                        >
-                        <KoroButton title="Call Popover" onPress={()=> setPopOpen(!popOpen)} style={{width: 300}}/>
-                    </KoroPopover >
-                </View>
-            </KoroCard>
+                <KoroCard header={popoverHeader} footer={popoverFooter}>
+                    <View>
+                        <KoroPopover
+                            visible={popOpen}
+                            title='Popover'
+                            content='This is a popover.'
+                            >
+                            <KoroButton title="Click me for a Popover" onPress={()=> setPopOpen(!popOpen)} buttonStyle={{backgroundColor: '#d9d9d9', minWidth: 200}} textStyle={{color: 'black'}}/>
+                        </KoroPopover >
+                    </View>
+                </KoroCard>
 
-            <KoroCard header={progressHeader} footer={progressFooter}>
-                <View>
-                    <KoroProgress visible={progressActive}/>
-                    <KoroButton title="Load Progress" onPress={() => showProgress()} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}} />
-                </View>
-            </KoroCard>
+                <KoroCard header={progressHeader} footer={progressFooter}>
+                    <View>
+                        <KoroProgress visible={progressActive}/>
+                        <KoroButton title="Load Progress" onPress={() => showProgress()} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}} />
+                    </View>
+                </KoroCard>
+
+                
+                <KoroCard header={stepsHeader} footer={stepsFooter}>
+                    <View>
+                        <KoroModal visible={stepsOpen} borderStyle={{padding: 20}} onRequestClose={()=> setStepsOpen(false)}>
+                            <KoroSteps
+                                steps={['Step number 1', 'Step number 2', 'Step number 3', 'Step number 4', 'Step number 5']}
+                                onDone={() => setStepsOpen(false)}
+                            />
+                        </KoroModal>
+                        
+                        <KoroButton title="Show steps" onPress={() => setStepsOpen(true)} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}} />
+                    </View>
+                </KoroCard>
+                <KoroCard header={collapseHeader} footer={collapseFooter}>
+                    <View>
+                        <Text>This below is a Collapse</Text>
+                    </View>
+                </KoroCard>
             </ScrollView>
             {toast}
         </View>
