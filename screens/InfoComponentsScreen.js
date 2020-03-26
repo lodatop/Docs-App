@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { KoroCard, KoroAlert, KoroCollapse, KoroButton, KoroModal, KoroToast, KoroPopover } from 'rn-koro-lib'
+import { KoroCard, KoroAlert, KoroCollapse, KoroButton, KoroModal, KoroToast, KoroPopover, KoroProgress } from 'rn-koro-lib'
 
 export const InfoComponentsScreen = (props) => {
 
@@ -8,6 +8,7 @@ export const InfoComponentsScreen = (props) => {
     const [modalOpen, setModalOpen] = useState(false)
     const [popOpen, setPopOpen] = useState(false)
     const [toast, setToast] = useState(null);
+    const [progressActive, setProgressActive] = useState(false)
 
     const tryToast = () => {
         setToast(<KoroToast 
@@ -19,6 +20,13 @@ export const InfoComponentsScreen = (props) => {
         setTimeout(()=>{
           setToast(null)
         }, 2000)
+    }
+
+    const showProgress = () => {
+        setProgressActive(true);
+        setTimeout(()=>{
+          setProgressActive(false)
+        }, 4000)
     }
 
     const alertHeader = () => (
@@ -43,7 +51,13 @@ export const InfoComponentsScreen = (props) => {
         <View>
           <Text style={styles.title}>Popover</Text>
         </View>
-    );  
+    ); 
+
+    const progressHeader = () => (
+        <View>
+          <Text style={styles.title}>Progress</Text>
+        </View>
+    ); 
         
     const alertCode = '<KoroAlert message="Alert message" visible={boolean} confirmButton={{onPress: () => doSomething(), textStyle: {}} cancelButton={{onPress: () => doSomething(), textStyle: {}}} />'
 
@@ -103,6 +117,18 @@ export const InfoComponentsScreen = (props) => {
         </KoroCollapse>
       );
 
+      const progressCode = "<KoroProgress visible={boolean}/>"
+
+      const progressFooter = () => (
+        <KoroCollapse title='Show code'>
+            <View style={[{backgroundColor: 'LightGrey'}]}>
+                <Text> {progressCode} </Text>
+                <Text> Props: </Text>
+                <Text> visible: a boolean that sets whether the progress is visible. </Text>
+            </View>
+        </KoroCollapse>
+      );
+
     return(
         <View>
             <KoroCard header={alertHeader} footer={alertFooter}>
@@ -150,6 +176,13 @@ export const InfoComponentsScreen = (props) => {
                         >
                         <KoroButton title="Call Popover" onPress={()=> setPopOpen(!popOpen)} style={{width: 300}}/>
                     </KoroPopover >
+                </View>
+            </KoroCard>
+
+            <KoroCard header={progressHeader} footer={progressFooter}>
+                <View>
+                    <KoroProgress visible={progressActive}/>
+                    <KoroButton title="Load Progress" onPress={() => showProgress()} buttonStyle={{backgroundColor: 'blue', minWidth: 200}} textStyle={{color: 'white'}} />
                 </View>
             </KoroCard>
         </View>
