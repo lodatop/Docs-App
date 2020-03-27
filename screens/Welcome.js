@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
 import { KoroSteps, KoroButton, Wrapper } from 'rn-koro-lib';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -9,11 +9,22 @@ export const Welcome = (props) => {
     let { onDone } = props
 
     let step1 = (
-        <View style={styles.stepContainer}>
-            <Text style={{fontSize: 50, textAlign: 'center', marginBottom: 40}}>
+        <View style={{...styles.stepContainer, alignItems: 'center'}}>
+            <Text style={{fontSize: 50, textAlign: 'center', marginBottom: 30}}>
                 Welcome to Koro Lib
             </Text>
-            <Text style={{fontSize: 25, textAlign: 'justify', marginBottom: 30}}>
+            <Image
+                style={styles.logo}
+                source={
+                    require('../assets/korologo.png')
+                }
+            />
+        </View>
+    )
+
+    let step2 = (
+        <View style={styles.stepContainer}>
+            <Text style={{fontSize: 25, textAlign: 'center', marginBottom: 30}}>
                 Koro lib is a customised components library for React Native
             </Text>
             <Text style={{fontSize: 18, textAlign: 'center'}}>
@@ -22,7 +33,7 @@ export const Welcome = (props) => {
         </View>
     )
 
-    let step2 = (
+    let step3 = (
         <View style={{...styles.stepContainer}}>
             <View style={{flexDirection: 'row', marginBottom: 30, flexWrap: 'wrap'}}>
                 <Text style={{fontWeight: "700", fontSize: 20}}>First: </Text>
@@ -43,8 +54,8 @@ export const Welcome = (props) => {
         </View>
     )
 
-    let step3 = (
-        <View style={{...styles.stepContainer, ...styles.step3}}>
+    let step4 = (
+        <View style={{...styles.stepContainer, ...styles.step4}}>
             <ScrollView>
                 <Text>import React from 'react';</Text>
                 <Text>import {'{'} View, Text, StyleSheet {'}'} from 'react-native';</Text>
@@ -73,7 +84,7 @@ export const Welcome = (props) => {
         </View>
     );
 
-    let step4 = (
+    let step5 = (
         <View style={{...styles.stepContainer, padding: 20}}>
             <Text style={{fontSize: 50, textAlign: 'center', marginBottom: 40}}>You're done!!</Text>
             <Text style={{fontSize: 25, textAlign: 'center', padding: 20}}>
@@ -86,7 +97,8 @@ export const Welcome = (props) => {
         step1, 
         step2, 
         step3,
-        step4
+        step4,
+        step5
     ]
 
     return (
@@ -110,7 +122,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 20
     },
-    step3: {
+    step4: {
         padding: 0,
         paddingLeft: 35,
         paddingVertical: 10, 
@@ -122,6 +134,11 @@ const styles = StyleSheet.create({
         flex:1,
         paddingTop: 10, 
         width: '100%'
+    },
+    logo: {
+        width: 300,
+        height: 300,
+        backgroundColor: 'transparent'
     }
 })
 Welcome.navigationOptions = {
